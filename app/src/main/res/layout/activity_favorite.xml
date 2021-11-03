@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".Favorite">
+
+    //城市
+    <TextView
+        android:id="@+id/city"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"/>
+    //温度
+    <TextView
+        android:id="@+id/temperature"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"/>
+    //湿度
+    <TextView
+        android:id="@+id/humidity"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3"/>
+
+    <LinearLayout
+        android:id="@+id/option"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="2"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/cancel"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="取消"/>
+        <Button
+            android:id="@+id/follow"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="关注"/>
+    </LinearLayout>
+
+
+</LinearLayout>
