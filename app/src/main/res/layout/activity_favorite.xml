@@ -5,26 +5,41 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Favorite">
+    tools:context=".controller.FavoriteActivity">
 
     //城市
     <TextView
         android:id="@+id/city"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"/>
+        android:layout_weight="2"
+        android:textAlignment="center"
+        android:paddingTop="40dp"
+        android:textSize="20dp"/>
     //温度
     <TextView
         android:id="@+id/temperature"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"/>
+        android:layout_weight="2"
+        android:textAlignment="center"
+        android:paddingTop="50dp"
+        android:textSize="20dp"/>
+    //最高温度和最低温度
+    <ListView
+        android:id="@+id/allTem"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3" />
     //湿度
     <TextView
         android:id="@+id/humidity"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"/>
+        android:layout_weight="2"
+        android:textAlignment="center"
+        android:paddingTop="50dp"
+        android:textSize="20dp"/>
 
     <LinearLayout
         android:id="@+id/option"

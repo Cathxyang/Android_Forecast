@@ -1,4 +1,4 @@
-package com.example.forecast;
+package com.example.forecast.controller;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -8,13 +8,16 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
 
+import com.example.forecast.R;
+import com.example.forecast.model.SimpleWeather;
+
 import java.util.List;
 
-public class MyAdapter extends ArrayAdapter<SimpleWeather> {
+public class FavoriteAdapter extends ArrayAdapter<SimpleWeather> {
 
     private int id;
 
-    public MyAdapter(Context context, int textViewResourceId, List<SimpleWeather> object){
+    public FavoriteAdapter(Context context, int textViewResourceId, List<SimpleWeather> object){
         super(context, textViewResourceId, object);
         id = textViewResourceId;
     }
@@ -22,7 +25,8 @@ public class MyAdapter extends ArrayAdapter<SimpleWeather> {
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
         SimpleWeather simpleWeather = getItem(position);
-        @SuppressLint("ViewHolder") View view = LayoutInflater.from(getContext()).inflate(id, parent, false);
+        @SuppressLint("ViewHolder") View view = LayoutInflater.from(getContext()).inflate(id,
+                parent, false);
         TextView city = (TextView) view.findViewById(R.id.city);
         TextView temperature = (TextView) view.findViewById(R.id.temperature);
         city.setText(simpleWeather.getCity());

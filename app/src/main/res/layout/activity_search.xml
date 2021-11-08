@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Search">
+    tools:context=".controller.SearchActivity">
 
     //搜索
     <EditText
@@ -12,12 +12,21 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:hint="查询"/>
+        android:hint="查询"
+        android:descendantFocusability="beforeDescendants"
+        android:focusableInTouchMode="true" />
     //搜索历史
     <ListView
         android:id="@+id/history"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="10"/>
+    //搜索按钮
+    <Button
+        android:id="@+id/confirm_button"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:text="确定"/>
 
 </LinearLayout>

@@ -5,7 +5,7 @@
     android:orientation="horizontal">
 
     <TextView
-        android:id="@+id/city"
+        android:id="@+id/lowTem"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"
@@ -13,7 +13,7 @@
         android:textSize="20dp"/>
 
     <TextView
-        android:id="@+id/temperature"
+        android:id="@+id/highTem"
         android:layout_width="0dp"
         android:layout_height="match_parent"
         android:layout_weight="1"

@@ -1,18 +1,20 @@
-package com.example.forecast;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.example.forecast.controller;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.TextView;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import com.example.forecast.R;
+import com.example.forecast.model.SimpleWeather;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class More extends AppCompatActivity {
+public class MoreActivity extends AppCompatActivity {
 
     private List<SimpleWeather> favoriteList = new ArrayList<>();
 
@@ -22,7 +24,7 @@ public class More extends AppCompatActivity {
         setContentView(R.layout.activity_more);
 
         //favoriteList数据
-        MyAdapter adapter = new MyAdapter(More.this, R.layout.simple_item, favoriteList);
+        FavoriteAdapter adapter = new FavoriteAdapter(MoreActivity.this, R.layout.simple_item, favoriteList);
         ListView favorite = (ListView) findViewById(R.id.favorite);
         favorite.setAdapter(adapter);
 
@@ -31,7 +33,7 @@ public class More extends AppCompatActivity {
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(More.this, Search.class);
+                Intent intent = new Intent(MoreActivity.this, SearchActivity.class);
                 startActivity(intent);
             }
         });

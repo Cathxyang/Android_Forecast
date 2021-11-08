@@ -4,26 +4,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".Weather">
+    tools:context=".controller.WeatherActivity">
 
     //城市
+
     <TextView
         android:id="@+id/city"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"/>
+        android:layout_weight="2"
+        android:paddingTop="40dp"
+        android:textAlignment="center"
+        android:textSize="20dp" />
+
     //温度
+
     <TextView
         android:id="@+id/temperature"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"/>
+        android:layout_weight="2"
+        android:paddingTop="50dp"
+        android:textAlignment="center"
+        android:textSize="20dp" />
+
+    //最高温度和最低温度
+
+    <ListView
+        android:id="@+id/allTem"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="3" />
+
     //湿度
+
     <TextView
         android:id="@+id/humidity"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="3"/>
+        android:layout_weight="2"
+        android:paddingTop="50dp"
+        android:textAlignment="center"
+        android:textSize="20dp" />
 
     <LinearLayout
         android:id="@+id/option"
@@ -37,13 +59,14 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="更新"/>
+            android:text="更新" />
+
         <Button
             android:id="@+id/more"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:text="更多"/>
+            android:text="更多" />
     </LinearLayout>
 
 </LinearLayout>
