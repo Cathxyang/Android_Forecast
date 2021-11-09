@@ -10,20 +10,24 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.forecast.R;
-import com.example.forecast.model.Weather;
+import com.example.forecast.model.AllWeather;
+import com.example.forecast.model.BaseWeather;
 import com.example.forecast.util.DownloadManager;
 
 import java.util.ArrayList;
 
 public class WeatherActivity extends AppCompatActivity {
 
-    public ArrayList<Weather> hlTem = new ArrayList<>();
-
+    public ArrayList<AllWeather> hlTem = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather);
+        Intent intent = getIntent();
+        String adcode = intent.getStringExtra("extra_data");
+        String cityData = intent.getStringExtra("extra_city");
+
 
         //实例化页面上的按钮和文本框
         Button update = (Button) findViewById(R.id.update);
@@ -54,23 +58,23 @@ public class WeatherActivity extends AppCompatActivity {
             }
         });
 
-        //显示城市
+
+        //显示当前城市、温度和湿度
         DownloadManager requestDownloadManager = new DownloadManager();
-
-
-        //显示当前温度、湿度
         requestDownloadManager.sendBaseWeatherRequestWithOkHttp(new DownloadManager.BaseWeatherCallBack() {
             @Override
-            public void finishBaseWeather(Weather weather) {
+            public void finishBaseWeather(BaseWeather baseWeather) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        temperature.setText("当前温度：" + weather.firstWeather + "°" + "\n");
-                        humidity.setText("当前湿度：" + weather.secondWeather);
+                        city.setText(baseWeather.city);
+                        temperature.setText("当前温度：" + baseWeather.temperature + "°" + "\n");
+                        humidity.setText("当前湿度：" + baseWeather.humidity);
                     }
                 });
             }
-        }, "110101");
+        }, adcode);
+
 
         //显示最高温度和最低温度
         AllWeatherAdapter adapter = new AllWeatherAdapter(WeatherActivity.this,
@@ -88,7 +92,7 @@ public class WeatherActivity extends AppCompatActivity {
                     }
                 });
             }
-        }, "110101");
+        }, adcode);
 
     }
 

@@ -28,7 +28,7 @@ public class SearchActivity extends AppCompatActivity {
         search = findViewById(R.id.search);
         search.requestFocus();
 
-        //查询城市或编号
+        //查询城市编号
         Button confirm = (Button) findViewById(R.id.confirm_button);
         confirm.setOnClickListener(new View.OnClickListener() {
             @Override

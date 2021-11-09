@@ -1,6 +1,8 @@
 package com.example.forecast.controller;
 
+import android.content.ContentValues;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -10,19 +12,23 @@ import android.widget.TextView;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.forecast.R;
-import com.example.forecast.model.Weather;
+import com.example.forecast.db.MyDatabaseHelper;
+import com.example.forecast.model.AllWeather;
+import com.example.forecast.model.BaseWeather;
 import com.example.forecast.util.DownloadManager;
 
 import java.util.ArrayList;
 
 public class FavoriteActivity extends AppCompatActivity {
 
-    public ArrayList<Weather> hlTem = new ArrayList<>();
-
+    public ArrayList<AllWeather> hlTem = new ArrayList<>();
+    public MyDatabaseHelper dbHelper;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_favorite);
+        dbHelper = new MyDatabaseHelper(this,null,null,1);
+
         //得到当前区号
         Intent intent = getIntent();
         String adcode = intent.getStringExtra("extra_data");
@@ -37,42 +43,22 @@ public class FavoriteActivity extends AppCompatActivity {
         ListView allTem = (ListView) findViewById(R.id.allTem);
 
 
-        //取消
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FavoriteActivity.this, WeatherActivity.class);
-                startActivity(intent);
-            }
-        });
-
-        //添加关注
-        follow.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(FavoriteActivity.this, MoreActivity.class);
-                startActivity(intent);
-
-            }
-        });
-
-        //显示地区
-        city.setText(cityData);
-
-        //显示当前温度、湿度
+        //显示当前地区、温度和湿度
         DownloadManager requestDownloadManager = new DownloadManager();
         requestDownloadManager.sendBaseWeatherRequestWithOkHttp(new DownloadManager.BaseWeatherCallBack() {
             @Override
-            public void finishBaseWeather(Weather weather) {
+            public void finishBaseWeather(BaseWeather baseWeather) {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        temperature.setText("当前温度：" + weather.firstWeather + "°" + "\n");
-                        humidity.setText("当前湿度：" + weather.secondWeather);
+                        city.setText(baseWeather.city);
+                        temperature.setText("当前温度：" + baseWeather.temperature + "°" + "\n");
+                        humidity.setText("当前湿度：" + baseWeather.humidity);
                     }
                 });
             }
-        },adcode);
+        }, adcode);
+
 
         //显示最高温度和最低温度
         AllWeatherAdapter adapter = new AllWeatherAdapter(FavoriteActivity.this,
@@ -91,5 +77,29 @@ public class FavoriteActivity extends AppCompatActivity {
                 });
             }
         }, adcode);
+
+        //添加关注
+        follow.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SQLiteDatabase db = dbHelper.getWritableDatabase();
+                ContentValues values = new ContentValues();
+                values.put("adcode", adcode);
+                values.put("city", cityData);
+                db.insert("Forecast", null, values);
+                Intent intent = new Intent(FavoriteActivity.this, MoreActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
+        //取消
+        cancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(FavoriteActivity.this, MoreActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

@@ -1,7 +1,8 @@
 package com.example.forecast.util;
 
+import com.example.forecast.model.AllWeather;
+import com.example.forecast.model.BaseWeather;
 import com.example.forecast.model.Location;
-import com.example.forecast.model.Weather;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -19,7 +20,7 @@ public class DownloadManager {
     public String humidity;
 
     public interface BaseWeatherCallBack {
-        void finishBaseWeather(Weather weather);
+        void finishBaseWeather(BaseWeather baseWeather);
     }
 
     public interface AllWeatherCallBack {
@@ -29,6 +30,7 @@ public class DownloadManager {
     public interface LocationCallBack {
         void finishLocation(ArrayList arrayList);
     }
+
 
     //发送地点请求
     public void sendLocationRequestWithOkHttp(LocationCallBack callBack, String city) {
@@ -67,6 +69,7 @@ public class DownloadManager {
         return null;
     }
 
+
     //发送当前天气请求
     public void sendBaseWeatherRequestWithOkHttp(BaseWeatherCallBack callBack, String city) {
         new Thread(new Runnable() {
@@ -87,11 +90,12 @@ public class DownloadManager {
         }).start();
     }
     //解析基础天气需要的内容
-    public Weather parseBaseWeatherJSONWithJSONObject(String jsonData) {
+    public BaseWeather parseBaseWeatherJSONWithJSONObject(String jsonData) {
         try {
             JSONObject jsonObject = new JSONObject(jsonData);
             JSONObject object = jsonObject.getJSONArray("lives").getJSONObject(0);
-            return new Weather(object.getString("temperature"),
+            return new BaseWeather(object.getString("city"),
+                    object.getString("temperature"),
                     object.getString("humidity"));
 
         } catch (Exception e) {
@@ -100,6 +104,7 @@ public class DownloadManager {
 
         return null;
     }
+
 
     //发送所有天气请求
     public void sendAllWeatherRequestWithOkHttp(AllWeatherCallBack callBack, String city) {
@@ -121,14 +126,15 @@ public class DownloadManager {
         }).start();
     }
     //解析所有天气需要的内容
-    public ArrayList<Weather> parseAllWeatherJSONWithJSONObject(String jsonData) {
+    public ArrayList<AllWeather> parseAllWeatherJSONWithJSONObject(String jsonData) {
         try {
             JSONObject jsonObject = new JSONObject(jsonData);
             JSONObject object = jsonObject.getJSONArray("forecasts").getJSONObject(0);
             JSONArray jsonArray = object.getJSONArray("casts");
-            ArrayList weather = new ArrayList<Weather>();
+            ArrayList weather = new ArrayList<AllWeather>();
             for (int i = 0; i < jsonArray.length(); i++) {
-                weather.add(new Weather(jsonArray.getJSONObject(i).getString("daytemp"),
+                weather.add(new AllWeather(jsonArray.getJSONObject(i).getString("date"),
+                        jsonArray.getJSONObject(i).getString("daytemp"),
                         jsonArray.getJSONObject(i).getString("nighttemp")));
             }
             return weather;

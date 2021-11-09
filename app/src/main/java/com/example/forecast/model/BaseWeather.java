@@ -1,13 +1,15 @@
 package com.example.forecast.model;
 
-public class SimpleWeather {
+public class BaseWeather {
 
     public String city;
     public String temperature;
+    public String humidity;
 
-    public SimpleWeather(String city, String temperature) {
+    public BaseWeather(String city, String temperature, String humidity) {
         this.city = city;
         this.temperature = temperature;
+        this.humidity = humidity;
     }
 
     public String getCity() {
@@ -16,5 +18,9 @@ public class SimpleWeather {
 
     public String getTemperature() {
         return temperature;
+    }
+
+    public String getHumidity() {
+        return humidity;
     }
 }
