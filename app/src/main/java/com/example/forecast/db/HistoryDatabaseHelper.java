@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 public class HistoryDatabaseHelper extends SQLiteOpenHelper {
     public static final String CREATE_HISTORY = "create table History ("
             + "id integer primary key autoincrement,"
-            + "adcode text)";
+            + "adcode text unique)";
 
     private Context mContext;
 

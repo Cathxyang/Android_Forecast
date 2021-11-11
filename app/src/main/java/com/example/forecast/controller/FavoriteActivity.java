@@ -1,6 +1,7 @@
 package com.example.forecast.controller;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -43,6 +45,7 @@ public class FavoriteActivity extends AppCompatActivity {
         ListView allTem = (ListView) findViewById(R.id.allTem);
 
 
+        Context context = this;
         //显示当前地区、温度和湿度
         DownloadManager requestDownloadManager = new DownloadManager();
         requestDownloadManager.sendBaseWeatherRequestWithOkHttp(new DownloadManager.BaseWeatherCallBack() {
@@ -51,9 +54,14 @@ public class FavoriteActivity extends AppCompatActivity {
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
-                        city.setText(baseWeather.city);
-                        temperature.setText("当前温度：" + baseWeather.temperature + "°" + "\n");
-                        humidity.setText("当前湿度：" + baseWeather.humidity);
+                        try {
+                            city.setText(baseWeather.city);
+                            temperature.setText("当前温度：" + baseWeather.temperature + "°" + "\n");
+                            humidity.setText("当前湿度：" + baseWeather.humidity);
+                        } catch (Exception e){
+                            finish();
+                            Toast.makeText(context,"该编号没有对应的城市",Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }
@@ -78,6 +86,7 @@ public class FavoriteActivity extends AppCompatActivity {
             }
         }, adcode);
 
+
         //添加关注
         follow.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -89,7 +98,6 @@ public class FavoriteActivity extends AppCompatActivity {
                 db.insert("Forecast", null, values);
                 Intent intent = new Intent(FavoriteActivity.this, MoreActivity.class);
                 startActivity(intent);
-
             }
         });
 

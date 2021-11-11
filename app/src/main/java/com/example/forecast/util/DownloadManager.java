@@ -96,7 +96,8 @@ public class DownloadManager {
             JSONObject object = jsonObject.getJSONArray("lives").getJSONObject(0);
             return new BaseWeather(object.getString("city"),
                     object.getString("temperature"),
-                    object.getString("humidity"));
+                    object.getString("humidity"),
+                    object.getString("reporttime"));
 
         } catch (Exception e) {
             e.printStackTrace();

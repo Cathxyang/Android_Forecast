@@ -83,7 +83,7 @@ public class MoreActivity extends AppCompatActivity {
                             public void run() {
                                 temFollow.add(baseWeather.temperature);
                                 cityData.add(baseWeather.city);
-                                BaseWeather weather = new BaseWeather(baseWeather.city, baseWeather.temperature, "");
+                                BaseWeather weather = new BaseWeather(baseWeather.city, baseWeather.temperature, "","");
                                 favoriteList.add(weather);
                                 adcodeData.add(adcode);
 
